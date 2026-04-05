@@ -1,20 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>My First App</title>
-    <style>
-        body {
-            font-family: Arial;
-            text-align: center;
-            margin-top: 50px;
-        }
-        h1 {
-            color: #2ecc71;
-        }
-    </style>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}Главная — My First App{% endblock %}
+
+{% block content %}
     <h1>Hello, vibe coding on Python 🚀</h1>
     <p>Теперь это уже веб-приложение с UI</p>
-</body>
-</html>
+{% endblock %}

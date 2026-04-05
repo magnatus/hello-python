@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}My First App{% endblock %}</title>
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            margin-top: 50px;
+        }
+        h1 {
+            color: #2ecc71;
+        }
+        nav {
+            margin-bottom: 30px;
+        }
+        nav a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #2ecc71;
+            font-weight: bold;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/">Главная</a>
+        <a href="/about">О проекте</a>
+    </nav>
+    {% block content %}{% endblock %}
+</body>
+</html>
