@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}Анкета — My First App{% endblock %}
+
+{% block content %}
+    <h1>Мини-анкета</h1>
+
+    <form id="questionnaire-form"></form>
+    <p id="thank-you" style="display: none; font-size: 1.2em; color: #2ecc71;">Спасибо за ответы!</p>
+
+    <script>
+        const form = document.getElementById("questionnaire-form");
+        const thankYou = document.getElementById("thank-you");
+
+        fetch("/questions")
+            .then(r => r.json())
+            .then(questions => {
+                questions.forEach(q => {
+                    const label = document.createElement("label");
+                    label.textContent = q.text;
+                    label.style.display = "block";
+                    label.style.marginTop = "16px";
+
+                    const input = document.createElement("input");
+                    input.type = "text";
+                    input.name = "q" + q.id;
+                    input.dataset.id = q.id;
+                    input.style.marginTop = "4px";
+
+                    form.appendChild(label);
+                    form.appendChild(input);
+                });
+
+                const button = document.createElement("button");
+                button.type = "submit";
+                button.textContent = "Отправить";
+                button.style.marginTop = "24px";
+                form.appendChild(button);
+            });
+
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            const inputs = form.querySelectorAll("input");
+            const data = {};
+            inputs.forEach(input => {
+                data[input.dataset.id] = input.value;
+            });
+
+            fetch("/answers", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(data),
+            }).then(() => {
+                form.style.display = "none";
+                thankYou.style.display = "block";
+            });
+        });
+    </script>
+{% endblock %}
