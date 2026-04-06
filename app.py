@@ -27,15 +27,19 @@ def about():
 def questionnaire():
     return render_template("questionnaire.html")
 
-@app.route("/questions")
+@app.route("/api/questions")
 def questions():
     return jsonify(QUESTIONS)
 
-@app.route("/answers", methods=["POST"])
+@app.route("/api/answers", methods=["POST"])
 def submit_answers():
     data = request.get_json()
-    if data:
-        answers.append(data)
+    if not data:
+        return jsonify({"status": "error", "message": "Нет данных"}), 400
+    empty = [k for k, v in data.items() if not str(v).strip()]
+    if empty:
+        return jsonify({"status": "error", "message": "Заполните все поля"}), 400
+    answers.append(data)
     return jsonify({"status": "ok"})
 
 if __name__ == "__main__":

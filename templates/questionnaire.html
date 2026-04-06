@@ -6,13 +6,15 @@
     <h1>Мини-анкета</h1>
 
     <form id="questionnaire-form"></form>
+    <p id="error-msg" style="display: none; color: red;"></p>
     <p id="thank-you" style="display: none; font-size: 1.2em; color: #2ecc71;">Спасибо за ответы!</p>
 
     <script>
         const form = document.getElementById("questionnaire-form");
         const thankYou = document.getElementById("thank-you");
+        const errorMsg = document.getElementById("error-msg");
 
-        fetch("/questions")
+        fetch("/api/questions")
             .then(r => r.json())
             .then(questions => {
                 questions.forEach(q => {
@@ -47,13 +49,19 @@
                 data[input.dataset.id] = input.value;
             });
 
-            fetch("/answers", {
+            fetch("/api/answers", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(data),
-            }).then(() => {
-                form.style.display = "none";
-                thankYou.style.display = "block";
+            }).then(r => r.json()).then(result => {
+                if (result.status === "ok") {
+                    form.style.display = "none";
+                    errorMsg.style.display = "none";
+                    thankYou.style.display = "block";
+                } else {
+                    errorMsg.textContent = result.message;
+                    errorMsg.style.display = "block";
+                }
             });
         });
     </script>
