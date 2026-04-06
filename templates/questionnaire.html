@@ -3,11 +3,17 @@
 {% block title %}Анкета — My First App{% endblock %}
 
 {% block content %}
-    <h1>Мини-анкета</h1>
+    <div class="bg-white rounded-2xl shadow p-8">
+        <h1 class="text-3xl font-bold text-green-500 mb-6">Мини-анкета</h1>
 
-    <form id="questionnaire-form"></form>
-    <p id="error-msg" style="display: none; color: red;"></p>
-    <p id="thank-you" style="display: none; font-size: 1.2em; color: #2ecc71;">Спасибо за ответы!</p>
+        <form id="questionnaire-form" class="flex flex-col gap-5"></form>
+
+        <p id="error-msg" class="hidden mt-4 text-red-500 text-sm"></p>
+
+        <div id="thank-you" class="hidden text-center py-4">
+            <p class="text-2xl font-semibold text-green-500">Спасибо за ответы!</p>
+        </div>
+    </div>
 
     <script>
         const form = document.getElementById("questionnaire-form");
@@ -18,25 +24,28 @@
             .then(r => r.json())
             .then(questions => {
                 questions.forEach(q => {
+                    const wrapper = document.createElement("div");
+                    wrapper.className = "flex flex-col gap-1";
+
                     const label = document.createElement("label");
                     label.textContent = q.text;
-                    label.style.display = "block";
-                    label.style.marginTop = "16px";
+                    label.className = "text-sm font-medium text-gray-700";
 
                     const input = document.createElement("input");
                     input.type = "text";
                     input.name = "q" + q.id;
                     input.dataset.id = q.id;
-                    input.style.marginTop = "4px";
+                    input.className = "border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-400";
 
-                    form.appendChild(label);
-                    form.appendChild(input);
+                    wrapper.appendChild(label);
+                    wrapper.appendChild(input);
+                    form.appendChild(wrapper);
                 });
 
                 const button = document.createElement("button");
                 button.type = "submit";
                 button.textContent = "Отправить";
-                button.style.marginTop = "24px";
+                button.className = "mt-2 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg px-4 py-2 transition-colors";
                 form.appendChild(button);
             });
 
@@ -56,11 +65,11 @@
             }).then(r => r.json()).then(result => {
                 if (result.status === "ok") {
                     form.style.display = "none";
-                    errorMsg.style.display = "none";
-                    thankYou.style.display = "block";
+                    errorMsg.classList.add("hidden");
+                    thankYou.classList.remove("hidden");
                 } else {
                     errorMsg.textContent = result.message;
-                    errorMsg.style.display = "block";
+                    errorMsg.classList.remove("hidden");
                 }
             });
         });

@@ -3,12 +3,23 @@
 {% block title %}Главная — My First App{% endblock %}
 
 {% block content %}
-    <h1>Привет вайбкодерам 🚀</h1>
-    <p>Это уже веб-приложение с UI</p>
+    <h1 class="text-3xl font-bold text-green-500 mb-2">Привет вайбкодерам 🚀</h1>
+    <p class="text-gray-500 mb-8">Это уже веб-приложение с UI</p>
 
-    <form method="POST" action="/">
-        <label for="name">Как вас зовут?</label><br>
-        <input type="text" id="name" name="name" placeholder="Ваше имя">
-        <button type="submit">Поздороваться</button>
+    <form method="POST" action="/" class="bg-white rounded-2xl shadow p-6 flex flex-col gap-4">
+        <label for="name" class="text-sm font-medium text-gray-700">Как вас зовут?</label>
+        <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Ваше имя"
+            class="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+        >
+        <button
+            type="submit"
+            class="bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg px-4 py-2 transition-colors"
+        >
+            Поздороваться
+        </button>
     </form>
 {% endblock %}

@@ -1,36 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}My First App{% endblock %}</title>
-    <style>
-        body {
-            font-family: Arial;
-            text-align: center;
-            margin-top: 50px;
-        }
-        h1 {
-            color: #2ecc71;
-        }
-        nav {
-            margin-bottom: 30px;
-        }
-        nav a {
-            margin: 0 10px;
-            text-decoration: none;
-            color: #2ecc71;
-            font-weight: bold;
-        }
-        nav a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <nav>
-        <a href="/">Главная</a>
-        <a href="/about">О проекте</a>
-        <a href="/questionnaire">Анкета</a>
+<body class="bg-gray-50 text-gray-800 min-h-screen">
+
+    <nav class="bg-white shadow-sm">
+        <div class="max-w-2xl mx-auto px-4 py-4 flex gap-6">
+            <a href="/" class="text-green-500 font-semibold hover:text-green-700 transition-colors">Главная</a>
+            <a href="/about" class="text-green-500 font-semibold hover:text-green-700 transition-colors">О проекте</a>
+            <a href="/questionnaire" class="text-green-500 font-semibold hover:text-green-700 transition-colors">Анкета</a>
+        </div>
     </nav>
-    {% block content %}{% endblock %}
+
+    <main class="max-w-2xl mx-auto px-4 py-12">
+        {% block content %}{% endblock %}
+    </main>
+
 </body>
 </html>

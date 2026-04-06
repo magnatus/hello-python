@@ -3,6 +3,8 @@
 {% block title %}Привет — My First App{% endblock %}
 
 {% block content %}
-    <h1>Привет, {{ name }}!</h1>
-    <p><a href="/">Вернуться на главную</a></p>
+    <div class="bg-white rounded-2xl shadow p-8 text-center">
+        <h1 class="text-3xl font-bold text-green-500 mb-4">Привет, {{ name }}!</h1>
+        <a href="/" class="text-green-500 hover:text-green-700 font-medium transition-colors">← Вернуться на главную</a>
+    </div>
 {% endblock %}
