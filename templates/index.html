@@ -5,4 +5,10 @@
 {% block content %}
     <h1>Hello, vibe coding on Python 🚀</h1>
     <p>Теперь это уже веб-приложение с UI</p>
+
+    <form method="POST" action="/">
+        <label for="name">Введите ваше имя:</label><br>
+        <input type="text" id="name" name="name" placeholder="Ваше имя">
+        <button type="submit">Поздороваться</button>
+    </form>
 {% endblock %}
